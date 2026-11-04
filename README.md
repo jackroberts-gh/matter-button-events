@@ -1,25 +1,30 @@
 # Matter Button Events
 
-Experimental Home Assistant custom integration exposing early button events from **selected, already paired Matter devices** without replacing the official Matter integration.
+Adds early button events for selected, already paired Matter devices. Uses the official Matter integration’s connection and keeps its existing entities.
 
-**Status: experimental implementation; hardware acceptance is pending.** No latency reduction or production reliability is claimed yet. This is an early experimental version; hardware acceptance is pending.
+**Tested on Home Assistant 2026.10.4 with IKEA BILRESA.** Initial press, short release, double-click, hold and integration reload were checked on hardware. In three single-press tests, initial press arrived 550–600 ms before the regular single-click event. Experimental; long-term reliability and other devices are untested.
 
-## Installation and setup
+## Installation
 
-Requires **Home Assistant 2026.10.4 or later**. Automated verification targets 2026.10.4; later releases need their own compatibility checks because internal Matter interfaces can change.
-
-1. Copy `custom_components/matter_button_events` into your Home Assistant `config/custom_components/` directory. Use a reviewed commit and retain a backup. Do not create or replace `custom_components/matter`.
+1. Copy `custom_components/matter_button_events` into `config/custom_components/`.
 2. Restart Home Assistant.
-3. Add **Matter Button Events** in Settings → Devices & services.
-4. Select an existing device provided by the official Matter integration.
-5. The integration discovers compatible Generic Switch endpoints and creates an additional event entity per endpoint, named **Early button 1**, etc.
-6. Use `initial_press` or `short_release` in an automation.
+3. Go to **Settings → Devices & services → Add integration → Matter Button Events**.
+4. Select an existing Matter device. Repeat for additional devices.
 
-Repeat setup for additional devices. No node IDs, endpoint IDs, credentials, re-pairing or brand-specific configuration are required. Only events supported and actually sent by the device can be exposed; an arbitrary Matter device does not become a button. Existing Matter entities remain available.
+Creates an **Early button** event entity for each compatible button endpoint. No re-pairing required. Devices must support the corresponding Generic Switch events.
+
+## Events
+
+| Event | When |
+| --- | --- |
+| `initial_press` | Button pressed, including the start of a hold or each press in a double-click |
+| `short_release` | Short press released; not emitted after a hold |
+
+Use the original Matter entities for double-click and long-press events.
 
 ## Automation example
 
-Replace the placeholder entity IDs with your entities:
+Replace the example entity IDs:
 
 ```yaml
 triggers:
@@ -33,33 +38,19 @@ actions:
   - action: light.turn_on
     target:
       entity_id: light.example
-mode: queued
-max: 10
 ```
 
-Use `short_release` to react when a short press is released. Holding also starts with an initial press; short release is not long release. Multi-press and hold actions still use the original Matter entities.
-
-Delayed single-press triggers can remain as fallback, but both paths may execute. Use explicit on/off rather than toggle. Repeated effect commands may restart an effect; a delayed on-command may override a newer off-command. Test your own automation behavior. This integration does not suppress duplicate actions across the early and regular paths.
-
-## Scope and limits
-
-- Domain: `matter_button_events`; one UI config entry per selected device. No YAML configuration of this integration.
-- Reuses the selected Matter entry's client; no additional controller, cloud service or polling.
-- Does not send device commands, alter attributes, replace callbacks or patch the official integration.
-- Normal Matter entities and their multi-press/hold events are preserved.
-- Runs in the HA process and depends on internal Matter interfaces. Device filtering is not a security sandbox.
-- Exposes only `initial_press` and `short_release`, when supported. Devices without compatible buttons are rejected.
-- Restored state and reconnect do not synthesize button presses. Actual server replay behavior and physical-device timing remain hardware acceptance work.
-
-Automated tests use real HA fixtures and a deterministic Matter-client test double. They do not prove physical-device compatibility. See [the implementation and verification plan](docs/implementation-plan.md) for remaining acceptance work.
+Keeping regular single-click triggers as fallback can run actions twice. Use explicit on/off rather than toggle; delayed actions can override newer commands.
 
 ## Removal
 
-First remove the additional early-event triggers from your automations and retain or restore the regular Matter triggers. Remove each **Matter Button Events** entry. Then delete only `custom_components/matter_button_events` and restart HA. This integration never removes or re-pairs a Matter node.
+Remove early-event triggers from your automations, remove the **Matter Button Events** entries, delete `custom_components/matter_button_events` and restart HA. Existing Matter pairings remain.
 
 ## Development
 
-Use Python 3.14.2 or later in an isolated environment:
+Uses internal HA Matter interfaces, so HA updates may require changes. No additional connection, cloud service or polling.
+
+With Python 3.14.2 or later:
 
 ```sh
 python -m venv .venv
@@ -69,11 +60,4 @@ python -m venv .venv
 .venv/bin/pytest -q
 ```
 
-Tests never connect to a Matter server. Real use requires the official Matter integration and reuses its pinned client dependency. The test dependency pins match the inspected HA baseline rather than introducing runtime package overrides.
-
-## Documentation and reuse
-
-- [Architecture and behavior](docs/design.md)
-- [Implementation and verification plan](docs/implementation-plan.md)
-
-Code and documentation use the [MIT license](LICENSE). The config flow includes English and German. No HACS default-store inclusion or release validation is claimed. Household automations, network information, device identifiers and credentials do not belong in this repository.
+[MIT license](LICENSE).
