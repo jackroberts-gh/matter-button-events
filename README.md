@@ -1,5 +1,7 @@
 # Matter Button Events
 
+<img src="custom_components/matter_button_events/brand/icon.png" alt="Matter Button Events icon" width="64">
+
 Adds early button events for selected, already paired Matter devices. Uses the official Matter integration’s connection and keeps its existing entities.
 
 **This project is entirely AI-generated and provided as-is, without any warranty or guarantees.** It has been tested and works in the author’s setup with IKEA BILRESA switches on Home Assistant 2026.10.4. Compatibility, reliability and suitability for other setups are not guaranteed.
@@ -8,10 +10,12 @@ Tested: initial press, short release, double-click, hold and integration reload.
 
 ## Installation
 
-1. Copy `custom_components/matter_button_events` into `config/custom_components/`.
-2. Restart Home Assistant.
-3. Go to **Settings → Devices & services → Add integration → Matter Button Events**.
-4. Select an existing Matter device. Repeat for additional devices.
+1. In **HACS → ⋮ → Custom repositories**, add `https://github.com/vNmven0m/matter-button-events` as type **Integration**.
+2. Find **Matter Button Events** in HACS and download it.
+3. Restart Home Assistant.
+4. Go to **Settings → Devices & services → Add integration → Matter Button Events** and select an existing Matter device. Repeat for additional devices.
+
+For manual installation, copy `custom_components/matter_button_events` into `config/custom_components/`, then follow steps 3–4.
 
 Creates an **Early button** event entity for each compatible button endpoint. No re-pairing required. Devices must support the corresponding Generic Switch events.
 
@@ -46,7 +50,7 @@ Keeping regular single-click triggers as fallback can run actions twice. Use exp
 
 ## Removal
 
-Remove early-event triggers from your automations, remove the **Matter Button Events** entries, delete `custom_components/matter_button_events` and restart HA. Existing Matter pairings remain.
+Remove early-event triggers from your automations and the **Matter Button Events** integration entries. Remove the download in HACS (or delete `custom_components/matter_button_events` for a manual installation) and restart HA. Existing Matter pairings remain.
 
 ## Development
 
