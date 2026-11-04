@@ -2,7 +2,9 @@
 
 Adds early button events for selected, already paired Matter devices. Uses the official Matter integration’s connection and keeps its existing entities.
 
-**Tested on Home Assistant 2026.10.4 with IKEA BILRESA.** Initial press, short release, double-click, hold and integration reload were checked on hardware. In three single-press tests, initial press arrived 550–600 ms before the regular single-click event. Experimental; long-term reliability and other devices are untested.
+**This project is entirely AI-generated and provided as-is, without any warranty or guarantees.** It has been tested and works in the author’s setup with IKEA BILRESA switches on Home Assistant 2026.10.4. Compatibility, reliability and suitability for other setups are not guaranteed.
+
+Tested: initial press, short release, double-click, hold and integration reload. In three single-press tests, initial press arrived 550–600 ms before the regular single-click event.
 
 ## Installation
 
