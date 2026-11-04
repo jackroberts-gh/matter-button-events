@@ -1,0 +1,25 @@
+{
+  "title": "Matter Button Events",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Matter-Gerät auswählen",
+        "description": "Frühe Tastenereignisse eines bereits gekoppelten Matter-Geräts ergänzen. Bestehende Matter-Entitäten bleiben erhalten.",
+        "data": {
+          "device_id": "Matter-Gerät"
+        }
+      }
+    },
+    "error": {
+      "device_not_found": "Das ausgewählte Matter-Gerät ist nicht mehr verfügbar.",
+      "not_matter_device": "Wähle ein Gerät der offiziellen Matter-Integration aus.",
+      "ambiguous_source": "Dieses Gerät hat mehrere Matter-Quellen oder Identitäten und kann nicht eindeutig ausgewählt werden.",
+      "source_not_ready": "Die Matter-Integration ist noch nicht bereit. Warte, bis sie geladen ist, und versuche es erneut.",
+      "incompatible_source": "Die Matter-Anbindung ist mit dieser Integrationsversion nicht kompatibel.",
+      "no_supported_buttons": "Das Gerät hat keine geeigneten Generic-Switch-Endpunkte mit frühen Tastenereignissen."
+    },
+    "abort": {
+      "already_configured": "Dieses Matter-Gerät ist bereits eingerichtet."
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "domain": "matter_button_events",
+  "name": "Matter Button Events",
+  "codeowners": ["@vNmven0m"],
+  "config_flow": true,
+  "dependencies": ["matter"],
+  "documentation": "https://github.com/vNmven0m/matter-button-events",
+  "integration_type": "device",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/vNmven0m/matter-button-events/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

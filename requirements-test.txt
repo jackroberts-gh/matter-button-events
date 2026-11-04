@@ -1,0 +1,6 @@
+homeassistant==2026.10.4
+pytest-homeassistant-custom-component==0.13.375
+matter-python-client==1.4.0
+matter-ble-proxy==0.7.1
+aiohasupervisor==0.6.0
+ruff==0.17.3

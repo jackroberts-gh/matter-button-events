@@ -1,0 +1,25 @@
+{
+  "title": "Matter Button Events",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select a Matter device",
+        "description": "Add early events for the buttons of an already paired Matter device. Existing Matter entities are preserved.",
+        "data": {
+          "device_id": "Matter device"
+        }
+      }
+    },
+    "error": {
+      "device_not_found": "The selected Matter device is no longer available.",
+      "not_matter_device": "Select a device from the official Matter integration.",
+      "ambiguous_source": "This device has multiple Matter sources or identities and cannot be selected safely.",
+      "source_not_ready": "The Matter integration is not ready. Wait until it has loaded and try again.",
+      "incompatible_source": "The Matter runtime is incompatible with this integration version.",
+      "no_supported_buttons": "This device has no Generic Switch endpoints supporting early button events."
+    },
+    "abort": {
+      "already_configured": "This Matter device is already configured."
+    }
+  }
+}
