@@ -1,4 +1,4 @@
-# Matter Button Events
+# Matter Button Events - Forked
 
 <img src="custom_components/matter_button_events/brand/icon.png" alt="Matter Button Events icon" width="64">
 
